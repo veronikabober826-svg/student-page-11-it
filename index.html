@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudentHub 11-ІТ</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #eef5f1;
+    color: #17221e;
+}
+
+header {
+    background: #14251f;
+    color: white;
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #55bd8b;
+}
+
+main {
+    width: 90%;
+    max-width: 1100px;
+    margin: 35px auto;
+}
+
+.hero {
+    background: linear-gradient(135deg, #17352b, #318260);
+    color: white;
+    padding: 40px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.hero small {
+    letter-spacing: 2px;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin: 12px 0;
+}
+
+.hero p {
+    color: #d9eee5;
+}
+
+.date {
+    background: rgba(255,255,255,0.15);
+    padding: 20px;
+    border-radius: 18px;
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    gap: 10px;
+    margin: 25px 0;
+    overflow-x: auto;
+}
+
+nav button {
+    border: none;
+    background: white;
+    padding: 14px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+nav button:hover {
+    background: #287a5b;
+    color: white;
+}
+
+.page {
+    display: none;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+}
+
+.page.active {
+    display: block;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+select {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #d5e1db;
+    margin-bottom: 20px;
+}
+
+.lesson {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid #e0e8e4;
+    border-left: 5px solid #287a5b;
+    padding: 17px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+}
+
+.lesson-number {
+    color: #287a5b;
+    font-weight: bold;
+}
+
+.lesson-info {
+    flex: 1;
+}
+
+.lesson-info p {
+    color: #718078;
+    margin-top: 5px;
+}
+
+.form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input, textarea {
+    font-family: Arial;
+    font-size: 15px;
+    padding: 12px;
+    border: 1px solid #d5e1db;
+    border-radius: 10px;
+    outline: none;
+}
+
+input:focus, textarea:focus {
+    border-color: #287a5b;
+}
+
+.form input:first-child {
+    flex: 1;
+}
+
+.form button,
+.save-button {
+    background: #287a5b;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.task {
+    border: 1px solid #e0e8e4;
+    padding: 14px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.task.done span {
+    text-decoration: line-through;
+    color: #8b9691;
+}
+
+.task button {
+    margin-left: auto;
+    border: none;
+    background: none;
+    color: #b04040;
+    cursor: pointer;
+}
+
+.grade {
+    border: 1px solid #e0e8e4;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.grade strong {
+    color: #287a5b;
+    font-size: 25px;
+}
+
+.grade button {
+    margin-left: auto;
+}
+
+.average {
+    background: #e0f2e9;
+    padding: 17px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+.deadline {
+    border: 1px solid #e0e8e4;
+    border-left: 5px solid #287a5b;
+    padding: 17px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.deadline p {
+    margin-top: 8px;
+    color: #718078;
+}
+
+.deadline button {
+    margin-top: 10px;
+}
+
+textarea {
+    width: 100%;
+    height: 250px;
+    resize: vertical;
+    margin-bottom: 10px;
+}
+
+#saved {
+    color: #287a5b;
+    margin-top: 10px;
+}
+
+footer {
+    text-align: center;
+    color: #718078;
+    padding: 30px;
+}
+
+@media (max-width: 650px) {
+    header {
+        padding: 18px 5%;
+    }
+
+    header div:last-child {
+        display: none;
+    }
+
+    .hero {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .date {
+        width: 100%;
+    }
+
+    .form {
+        flex-direction: column;
+    }
+
+    .lesson {
+        display: block;
+    }
+
+    .lesson-number {
+        display: block;
+        margin-bottom: 8px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Student<span>Hub</span></div>
+    <div>11-ІТ • Студентський кабінет</div>
+</header>
+
+<main>
+
+<section class="hero">
+    <div>
+        <small>МОЯ СТОРІНКА СТУДЕНТА</small>
+        <h1>Навчайся зручно.</h1>
+        <p>Розклад, завдання, оцінки, дедлайни та нотатки — в одному місці.</p>
+    </div>
+
+    <div class="date">
+        <div id="day"></div>
+        <b id="date"></b>
+    </div>
+</section>
+
+<nav>
+    <button onclick="showPage('schedule')">📅 Розклад</button>
+    <button onclick="showPage('tasks')">✅ To-Do</button>
+    <button onclick="showPage('grades')">📊 Оцінки</button>
+    <button onclick="showPage('deadlines')">⏳ Дедлайни</button>
+    <button onclick="showPage('notes')">📝 Нотатки</button>
+</nav>
+
+<section id="schedule" class="page active">
+    <h2>📅 Мій розклад</h2>
+
+    <select id="daySelect" onchange="showSchedule()">
+        <option>Понеділок</option>
+        <option>Вівторок</option>
+        <option>Середа</option>
+        <option>Четвер</option>
+        <option>П'ятниця</option>
+    </select>
+
+    <div id="scheduleList"></div>
+</section>
+
+<section id="tasks" class="page">
+    <h2>✅ To-Do список</h2>
+
+    <div class="form">
+        <input id="taskInput" placeholder="Наприклад: зробити практичну">
+        <button onclick="addTask()">Додати</button>
+    </div>
+
+    <div id="taskList"></div>
+</section>
+
+<section id="grades" class="page">
+    <h2>📊 Мої оцінки</h2>
+
+    <div class="form">
+        <input id="subject" placeholder="Предмет">
+        <input id="grade" type="number" min="1" max="12" placeholder="Оцінка">
+        <button onclick="addGrade()">Додати</button>
+    </div>
+
+    <div id="gradeList"></div>
+
+    <div class="average">
+        Середній бал: <b id="average">—</b>
+    </div>
+</section>
+
+<section id="deadlines" class="page">
+    <h2>⏳ Дедлайни</h2>
+
+    <div class="form">
+        <input id="deadlineName" placeholder="Назва роботи">
+        <input id="deadlineDate" type="date">
+        <button onclick="addDeadline()">Додати</button>
+    </div>
+
+    <div id="deadlineList"></div>
+</section>
+
+<section id="notes" class="page">
+    <h2>📝 Швидкі нотатки</h2>
+
+    <textarea id="notes" placeholder="Напиши тут важливу інформацію..."></textarea>
+
+    <br>
+
+    <button class="save-button" onclick="saveNotes()">
+        💾 Зберегти нотатки
+    </button>
+
+    <p id="saved"></p>
+</section>
+
+</main>
+
+<footer>
+    StudentHub • 11-ІТ
+</footer>
+
+<script>
+
+let today = new Date();
+
+document.getElementById("day").textContent =
+    today.toLocaleDateString("uk-UA", {
+        weekday: "long"
+    });
+
+document.getElementById("date").textContent =
+    today.toLocaleDateString("uk-UA");
+
+
+function showPage(page) {
+    document.querySelectorAll(".page").forEach(function(item) {
+        item.classList.remove("active");
+    });
+
+    document.getElementById(page).classList.add("active");
+}
+
+
+let schedule = {
+
+"Понеділок": [
+["1", "Українська мова", "Миронюк"],
+["2", "Хімія", "Зіняч"],
+["3", "Географія", "Малимон"],
+["4", "Фізика, астрономія", "Грицик"],
+["5", "Математика", "Герасимчук"]
+],
+
+"Вівторок": [
+["1", "Українська література", "Миронюк"],
+["2", "Захист України", "Шмігель"],
+["3", "Математика", "Герасимчук"],
+["4", "Фізика, астрономія", "Грицик"]
+],
+
+"Середа": [
+["1", "Хімія", "Зіняч"],
+["2", "Інформатика", "Гребіненко"],
+["3", "Фізична культура", "Турчик"],
+["4", "Українська мова", "Миронюк"],
+["5", "Біологія, екологія", "Зіняч"]
+],
+
+"Четвер": [
+["1", "Українська література", "Миронюк"],
+["2", "Захист України", "Шмігель"],
+["3", "Математика", "Герасимчук"],
+["4", "Фізика, астрономія", "Грицик"]
+],
+
+"П'ятниця": [
+["1", "Зарубіжна література", "Ткачук"],
+["2", "Історія: Україна і світ", "Коняхін"],
+["3", "Іноземна мова", "Музичук"]
+]
+
+};
+
+
+function showSchedule() {
+
+    let day = document.getElementById("daySelect").value;
+    let list = document.getElementById("scheduleList");
+
+    list.innerHTML = "";
+
+    schedule[day].forEach(function(lesson) {
+
+        list.innerHTML += `
+        <div class="lesson">
+
+            <div class="lesson-number">
+                ${lesson[0]} ПАРА
+            </div>
+
+            <div class="lesson-info">
+                <h3>${lesson[1]}</h3>
+                <p>${lesson[2]}</p>
+            </div>
+
+            <div>11-ІТ</div>
+
+        </div>
+        `;
+    });
+}
+
+showSchedule();
+
+
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+function addTask() {
+
+    let input = document.getElementById("taskInput");
+    let text = input.value.trim();
+
+    if (text === "") return;
+
+    tasks.push({
+        text: text,
+        done: false
+    });
+
+    input.value = "";
+
+    saveTasks();
+    showTasks();
+}
+
+
+function showTasks() {
+
+    let list = document.getElementById("taskList");
+    list.innerHTML = "";
+
+    tasks.forEach(function(task, index) {
+
+        list.innerHTML += `
+        <div class="task ${task.done ? "done" : ""}">
+
+            <input
+                type="checkbox"
+                ${task.done ? "checked" : ""}
+                onchange="completeTask(${index})">
+
+            <span>${task.text}</span>
+
+            <button onclick="deleteTask(${index})">
+                Видалити
+            </button>
+
+        </div>
+        `;
+    });
+}
+
+
+function completeTask(index) {
+
+    tasks[index].done = !tasks[index].done;
+
+    saveTasks();
+    showTasks();
+}
+
+
+function deleteTask(index) {
+
+    tasks.splice(index, 1);
+
+    saveTasks();
+    showTasks();
+}
+
+
+function saveTasks() {
+
+    localStorage.setItem(
+        "tasks",
+        JSON.stringify(tasks)
+    );
+}
+
+showTasks();
+
+
+let grades = JSON.parse(localStorage.getItem("grades")) || [];
+
+function addGrade() {
+
+    let subject = document.getElementById("subject").value;
+    let grade = document.getElementById("grade").value;
+
+    if (subject === "" || grade === "") return;
+
+    grades.push({
+        subject: subject,
+        grade: Number(grade)
+    });
+
+    document.getElementById("subject").value = "";
+    document.getElementById("grade").value = "";
+
+    saveGrades();
+    showGrades();
+}
+
+
+function showGrades() {
+
+    let list = document.getElementById("gradeList");
+    list.innerHTML = "";
+
+    let sum = 0;
+
+    grades.forEach(function(item, index) {
+
+        sum += item.grade;
+
+        list.innerHTML += `
+        <div class="grade">
+
+            <span>${item.subject}</span>
+
+            <strong>${item.grade}</strong>
+
+            <button onclick="deleteGrade(${index})">
+                Видалити
+            </button>
+
+        </div>
+        `;
+    });
+
+    if (grades.length > 0) {
+
+        document.getElementById("average").textContent =
+            (sum / grades.length).toFixed(2);
+
+    } else {
+
+        document.getElementById("average").textContent = "—";
+    }
+}
+
+
+function deleteGrade(index) {
+
+    grades.splice(index, 1);
+
+    saveGrades();
+    showGrades();
+}
+
+
+function saveGrades() {
+
+    localStorage.setItem(
+        "grades",
+        JSON.stringify(grades)
+    );
+}
+
+showGrades();
+
+
+let deadlines =
+    JSON.parse(localStorage.getItem("deadlines")) || [];
+
+
+function addDeadline() {
+
+    let name = document.getElementById("deadlineName").value;
+    let date = document.getElementById("deadlineDate").value;
+
+    if (name === "" || date === "") return;
+
+    deadlines.push({
+        name: name,
+        date: date
+    });
+
+    document.getElementById("deadlineName").value = "";
+    document.getElementById("deadlineDate").value = "";
+
+    saveDeadlines();
+    showDeadlines();
+}
+
+
+function showDeadlines() {
+
+    let list = document.getElementById("deadlineList");
+    list.innerHTML = "";
+
+    deadlines.forEach(function(item, index) {
+
+        list.innerHTML += `
+        <div class="deadline">
+
+            <h3>${item.name}</h3>
+
+            <p>📅 ${item.date}</p>
+
+            <button onclick="deleteDeadline(${index})">
+                Видалити
+            </button>
+
+        </div>
+        `;
+    });
+}
+
+
+function deleteDeadline(index) {
+
+    deadlines.splice(index, 1);
+
+    saveDeadlines();
+    showDeadlines();
+}
+
+
+function saveDeadlines() {
+
+    localStorage.setItem(
+        "deadlines",
+        JSON.stringify(deadlines)
+    );
+}
+
+showDeadlines();
+
+
+let notes = document.getElementById("notes");
+
+notes.value =
+    localStorage.getItem("notes") || "";
+
+
+function saveNotes() {
+
+    localStorage.setItem(
+        "notes",
+        notes.value
+    );
+
+    document.getElementById("saved").textContent =
+        "✓ Нотатки збережено";
+}
+
+</script>
+
+</body>
+</html>
