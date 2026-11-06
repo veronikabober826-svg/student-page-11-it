@@ -3,297 +3,329 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StudentHub 11-ІТ</title>
+
+<title>StudentHub | 11-ІТ</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background: #eef5f1;
-    color: #17221e;
+body{
+    background:#07111f;
+    color:white;
+    min-height:100vh;
+    transition:.3s;
 }
 
-header {
-    background: #14251f;
-    color: white;
-    padding: 20px 7%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+body.light{
+    background:#f1f5f9;
+    color:#172033;
 }
 
-.logo {
-    font-size: 28px;
-    font-weight: bold;
+header{
+    padding:40px;
+    min-height:230px;
+    background:linear-gradient(135deg,#07111f,#102a43,#087f6b);
+    position:relative;
+    overflow:hidden;
 }
 
-.logo span {
-    color: #55bd8b;
+header:before{
+    content:"";
+    position:absolute;
+    width:350px;
+    height:350px;
+    border-radius:50%;
+    background:#00e5a0;
+    opacity:.12;
+    right:-100px;
+    top:-150px;
 }
 
-main {
-    width: 90%;
-    max-width: 1100px;
-    margin: 35px auto;
+header h1{
+    font-size:46px;
+    position:relative;
 }
 
-.hero {
-    background: linear-gradient(135deg, #17352b, #318260);
-    color: white;
-    padding: 40px;
-    border-radius: 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
+header p{
+    color:#b7c7d9;
+    margin-top:10px;
+    position:relative;
 }
 
-.hero small {
-    letter-spacing: 2px;
+.student{
+    display:inline-block;
+    margin-top:25px;
+    padding:12px 18px;
+    background:rgba(255,255,255,.1);
+    border-radius:15px;
+    position:relative;
 }
 
-.hero h1 {
-    font-size: 42px;
-    margin: 12px 0;
+nav{
+    display:flex;
+    gap:10px;
+    padding:15px;
+    background:#0b1728;
+    overflow:auto;
+    position:sticky;
+    top:0;
+    z-index:10;
 }
 
-.hero p {
-    color: #d9eee5;
+nav button{
+    border:0;
+    background:#13263d;
+    color:white;
+    padding:12px 18px;
+    border-radius:12px;
+    cursor:pointer;
+    white-space:nowrap;
 }
 
-.date {
-    background: rgba(255,255,255,0.15);
-    padding: 20px;
-    border-radius: 18px;
-    text-align: center;
+nav button:hover,
+nav button.active{
+    background:#00b887;
 }
 
-nav {
-    display: flex;
-    gap: 10px;
-    margin: 25px 0;
-    overflow-x: auto;
+body.light nav{
+    background:white;
 }
 
-nav button {
-    border: none;
-    background: white;
-    padding: 14px 20px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: bold;
-    white-space: nowrap;
+body.light nav button{
+    background:#e2e8f0;
+    color:#172033;
 }
 
-nav button:hover {
-    background: #287a5b;
-    color: white;
+main{
+    max-width:1200px;
+    margin:auto;
+    padding:30px 20px;
 }
 
-.page {
-    display: none;
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+.section{
+    display:none;
 }
 
-.page.active {
-    display: block;
+.section.active{
+    display:block;
 }
 
-h2 {
-    margin-bottom: 20px;
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
 }
 
-select {
-    padding: 12px;
-    border-radius: 10px;
-    border: 1px solid #d5e1db;
-    margin-bottom: 20px;
+.card{
+    background:#0e1c2f;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:22px;
+    padding:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
 
-.lesson {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    border: 1px solid #e0e8e4;
-    border-left: 5px solid #287a5b;
-    padding: 17px;
-    margin-bottom: 12px;
-    border-radius: 12px;
+body.light .card{
+    background:white;
+    color:#172033;
 }
 
-.lesson-number {
-    color: #287a5b;
-    font-weight: bold;
+.card h2{
+    margin-bottom:15px;
 }
 
-.lesson-info {
-    flex: 1;
+.big{
+    font-size:35px;
+    color:#00d99b;
+    font-weight:bold;
 }
 
-.lesson-info p {
-    color: #718078;
-    margin-top: 5px;
+.stat{
+    text-align:center;
+    padding:25px;
 }
 
-.form {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+.stat span{
+    display:block;
+    font-size:35px;
+    color:#00d99b;
+    font-weight:bold;
 }
 
-input, textarea {
-    font-family: Arial;
-    font-size: 15px;
-    padding: 12px;
-    border: 1px solid #d5e1db;
-    border-radius: 10px;
-    outline: none;
+input,
+textarea,
+select{
+    width:100%;
+    padding:13px;
+    margin:8px 0;
+    border-radius:10px;
+    border:1px solid #334155;
+    background:#07111f;
+    color:white;
 }
 
-input:focus, textarea:focus {
-    border-color: #287a5b;
+body.light input,
+body.light textarea,
+body.light select{
+    background:#f8fafc;
+    color:#172033;
 }
 
-.form input:first-child {
-    flex: 1;
+button{
+    cursor:pointer;
 }
 
-.form button,
-.save-button {
-    background: #287a5b;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
+.primary{
+    background:#00b887;
+    color:white;
+    border:0;
+    padding:12px 18px;
+    border-radius:10px;
+    font-weight:bold;
 }
 
-.task {
-    border: 1px solid #e0e8e4;
-    padding: 14px;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.danger{
+    background:#ef4444;
+    color:white;
+    border:0;
+    padding:8px 12px;
+    border-radius:8px;
 }
 
-.task.done span {
-    text-decoration: line-through;
-    color: #8b9691;
+.schedule-controls{
+    display:flex;
+    gap:10px;
+    margin:20px 0;
+    flex-wrap:wrap;
 }
 
-.task button {
-    margin-left: auto;
-    border: none;
-    background: none;
-    color: #b04040;
-    cursor: pointer;
+.week-btn{
+    padding:12px 25px;
+    border:0;
+    border-radius:12px;
+    background:#1e293b;
+    color:white;
 }
 
-.grade {
-    border: 1px solid #e0e8e4;
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
+.week-btn.active{
+    background:#00b887;
 }
 
-.grade strong {
-    color: #287a5b;
-    font-size: 25px;
+.day{
+    margin-bottom:25px;
 }
 
-.grade button {
-    margin-left: auto;
+.day h3{
+    background:linear-gradient(90deg,#00b887,#087f6b);
+    padding:15px;
+    border-radius:15px 15px 0 0;
 }
 
-.average {
-    background: #e0f2e9;
-    padding: 17px;
-    border-radius: 12px;
-    margin-top: 20px;
+.lesson{
+    background:#0e1c2f;
+    border-bottom:1px solid #26384e;
+    padding:15px;
+    display:flex;
+    gap:15px;
+    align-items:center;
 }
 
-.deadline {
-    border: 1px solid #e0e8e4;
-    border-left: 5px solid #287a5b;
-    padding: 17px;
-    border-radius: 12px;
-    margin-bottom: 10px;
+body.light .lesson{
+    background:white;
+    color:#172033;
+    border-color:#ddd;
 }
 
-.deadline p {
-    margin-top: 8px;
-    color: #718078;
+.number{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:#00b887;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    flex-shrink:0;
 }
 
-.deadline button {
-    margin-top: 10px;
+.lesson strong{
+    display:block;
 }
 
-textarea {
-    width: 100%;
-    height: 250px;
-    resize: vertical;
-    margin-bottom: 10px;
+.lesson small{
+    color:#94a3b8;
 }
 
-#saved {
-    color: #287a5b;
-    margin-top: 10px;
+.todo-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px;
+    margin:8px 0;
+    background:#13263d;
+    border-radius:12px;
 }
 
-footer {
-    text-align: center;
-    color: #718078;
-    padding: 30px;
+body.light .todo-item{
+    background:#e8eef5;
 }
 
-@media (max-width: 650px) {
-    header {
-        padding: 18px 5%;
+.todo-item.done span{
+    text-decoration:line-through;
+    opacity:.5;
+}
+
+.timer{
+    font-size:70px;
+    text-align:center;
+    margin:25px;
+    color:#00d99b;
+    font-weight:bold;
+}
+
+.timer-buttons{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+
+.average{
+    margin-top:20px;
+    padding:20px;
+    background:#073f35;
+    border-radius:15px;
+    font-size:20px;
+}
+
+body.light .average{
+    background:#dff7ef;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#64748b;
+}
+
+@media(max-width:600px){
+    header{
+        padding:25px;
     }
 
-    header div:last-child {
-        display: none;
+    header h1{
+        font-size:32px;
     }
 
-    .hero {
-        flex-direction: column;
-        align-items: flex-start;
+    .timer{
+        font-size:48px;
     }
 
-    .hero h1 {
-        font-size: 32px;
-    }
-
-    .date {
-        width: 100%;
-    }
-
-    .form {
-        flex-direction: column;
-    }
-
-    .lesson {
-        display: block;
-    }
-
-    .lesson-number {
-        display: block;
-        margin-bottom: 8px;
+    .lesson{
+        align-items:flex-start;
     }
 }
 </style>
@@ -302,441 +334,1042 @@ footer {
 <body>
 
 <header>
-    <div class="logo">Student<span>Hub</span></div>
-    <div>11-ІТ • Студентський кабінет</div>
+
+<h1>StudentHub</h1>
+
+<p>
+Твій цифровий помічник студента 11-ІТ
+</p>
+
+<div class="student">
+👩‍💻 Вероніка • 11-ІТ
+</div>
+
 </header>
+
+
+<nav>
+
+<button class="active"
+onclick="showSection('home',this)">
+🏠 Головна
+</button>
+
+<button onclick="showSection('schedule',this)">
+📅 Розклад
+</button>
+
+<button onclick="showSection('todo',this)">
+✅ To-Do
+</button>
+
+<button onclick="showSection('notes',this)">
+📝 Нотатки
+</button>
+
+<button onclick="showSection('timer',this)">
+⏱️ Таймер
+</button>
+
+<button onclick="showSection('grades',this)">
+📊 Оцінки
+</button>
+
+<button onclick="toggleTheme()">
+🌙 Тема
+</button>
+
+</nav>
+
 
 <main>
 
-<section class="hero">
-    <div>
-        <small>МОЯ СТОРІНКА СТУДЕНТА</small>
-        <h1>Навчайся зручно.</h1>
-        <p>Розклад, завдання, оцінки, дедлайни та нотатки — в одному місці.</p>
-    </div>
 
-    <div class="date">
-        <div id="day"></div>
-        <b id="date"></b>
-    </div>
+<!-- ГОЛОВНА -->
+
+<section id="home" class="section active">
+
+<div class="grid">
+
+<div class="card">
+
+<h2>👋 Привіт!</h2>
+
+<p>
+Ласкаво просимо до твого StudentHub.
+</p>
+
+<br>
+
+<p>
+Тут можна контролювати навчання,
+розклад, завдання та оцінки.
+</p>
+
+</div>
+
+
+<div class="card stat">
+
+<h2>📚 Предмети</h2>
+
+<span>12+</span>
+
+<p>
+навчальних дисциплін
+</p>
+
+</div>
+
+
+<div class="card stat">
+
+<h2>🎯 Мета</h2>
+
+<span>200</span>
+
+<p>
+балів
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>💡 Цитата дня</h2>
+
+<p id="quote"></p>
+
+</div>
+
+</div>
+
+
+<br>
+
+
+<div class="card">
+
+<h2>🚀 Мій StudentHub</h2>
+
+<div class="grid">
+
+<div class="stat">
+<span>📅</span>
+<p>Розклад</p>
+</div>
+
+<div class="stat">
+<span>✅</span>
+<p>Завдання</p>
+</div>
+
+<div class="stat">
+<span>📝</span>
+<p>Нотатки</p>
+</div>
+
+<div class="stat">
+<span>📊</span>
+<p>Оцінки</p>
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-<nav>
-    <button onclick="showPage('schedule')">📅 Розклад</button>
-    <button onclick="showPage('tasks')">✅ To-Do</button>
-    <button onclick="showPage('grades')">📊 Оцінки</button>
-    <button onclick="showPage('deadlines')">⏳ Дедлайни</button>
-    <button onclick="showPage('notes')">📝 Нотатки</button>
-</nav>
 
-<section id="schedule" class="page active">
-    <h2>📅 Мій розклад</h2>
+<!-- РОЗКЛАД -->
 
-    <select id="daySelect" onchange="showSchedule()">
-        <option>Понеділок</option>
-        <option>Вівторок</option>
-        <option>Середа</option>
-        <option>Четвер</option>
-        <option>П'ятниця</option>
-    </select>
+<section id="schedule" class="section">
 
-    <div id="scheduleList"></div>
+<div class="card">
+
+<h2>📅 Розклад 11-ІТ</h2>
+
+<p>
+Вибери потрібний день або тиждень.
+</p>
+
+
+<div class="schedule-controls">
+
+<button class="week-btn active"
+onclick="showWeek('numerator',this)">
+Чисельник
+</button>
+
+<button class="week-btn"
+onclick="showWeek('denominator',this)">
+Знаменник
+</button>
+
+<button class="week-btn"
+onclick="showWeek('normal',this)">
+Вт–Пт
+</button>
+
+<button class="week-btn"
+onclick="showWeek('saturday',this)">
+Субота
+</button>
+
+</div>
+
+
+<!-- ЧИСЕЛЬНИК -->
+
+<div id="numerator">
+
+<div class="day">
+
+<h3>Понеділок — чисельник</h3>
+
+<div class="lesson">
+<div class="number">1</div>
+<div>
+<strong>Українська література</strong>
+</div>
+</div>
+
+<div class="lesson">
+<div class="number">2</div>
+<div>
+<strong>Географія</strong>
+</div>
+</div>
+
+<div class="lesson">
+<div class="number">3</div>
+<div>
+<strong>Математика</strong>
+</div>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ЗНАМЕННИК -->
+
+<div id="denominator" style="display:none">
+
+<div class="day">
+
+<h3>Понеділок — знаменник</h3>
+
+<div class="lesson">
+<div class="number">1</div>
+<div>
+<strong>Хімія</strong>
+</div>
+</div>
+
+<div class="lesson">
+<div class="number">2</div>
+<div>
+<strong>Фізика</strong>
+</div>
+</div>
+
+<div class="lesson">
+<div class="number">3</div>
+<div>
+<strong>Математика</strong>
+</div>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ВІВТОРОК-П'ЯТНИЦЯ -->
+
+<div id="normal" style="display:none">
+
+
+<div class="day">
+
+<h3>Вівторок</h3>
+
+<div class="lesson">
+<div class="number">1</div>
+<div>
+<strong>Фізкультура</strong>
+</div>
+</div>
+
+<div class="lesson">
+<div class="number">2</div>
+<div>
+<strong>Українська мова</strong>
+</div>
+</div>
+
+<div class="lesson">
+<div class="number">3</div>
+<div>
+<strong>Біологія</strong>
+</div>
+</div>
+
+</div>
+
+
+<div class="day">
+
+<h3>Середа</h3>
+
+<div class="lesson">
+<div class="number">1</div>
+<div>
+<strong>Хімія</strong>
+</div>
+</div>
+
+<div class="lesson">
+<div class="number">2</div>
+<div>
+<strong>Фізика</strong>
+</div>
+</div>
+
+<div class="lesson">
+<div class="number">3</div>
+<div>
+<strong>Інформатика</strong>
+</div>
+</div>
+
+</div>
+
+
+<div class="day">
+
+<h3>Четвер</h3>
+
+<div class="lesson">
+<div class="number">1</div>
+<div>
+<strong>Зарубіжна література</strong>
+</div>
+</div>
+
+<div class="lesson">
+<div class="number">2</div>
+<div>
+<strong>Історія</strong>
+</div>
+</div>
+
+<div class="lesson">
+<div class="number">3</div>
+<div>
+<strong>Англійська мова</strong>
+</div>
+</div>
+
+</div>
+
+
+<div class="day">
+
+<h3>П'ятниця</h3>
+
+<div class="lesson">
+<div class="number">1</div>
+<div>
+<strong>Українська література</strong>
+</div>
+</div>
+
+<div class="lesson">
+<div class="number">2</div>
+<div>
+<strong>Захист України</strong>
+</div>
+</div>
+
+<div class="lesson">
+<div class="number">3</div>
+<div>
+<strong>Математика</strong>
+</div>
+</div>
+
+<div class="lesson">
+<div class="number">4</div>
+<div>
+<strong>Фізика</strong>
+</div>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- СУБОТА -->
+
+<div id="saturday" style="display:none">
+
+<div class="day">
+
+<h3>📚 Субота</h3>
+
+<p style="padding:15px 0;color:#94a3b8">
+У суботу заняття проходять за розкладом
+одного з будніх днів.
+</p>
+
+<select id="saturdayDay"
+onchange="showSaturday()">
+
+<option value="mondayNum">
+Понеділок — чисельник
+</option>
+
+<option value="mondayDen">
+Понеділок — знаменник
+</option>
+
+<option value="tuesday">
+Вівторок
+</option>
+
+<option value="wednesday">
+Середа
+</option>
+
+<option value="thursday">
+Четвер
+</option>
+
+<option value="friday">
+П'ятниця
+</option>
+
+</select>
+
+<div id="saturdaySchedule"></div>
+
+</div>
+
+</div>
+
+
+</div>
+
 </section>
 
-<section id="tasks" class="page">
-    <h2>✅ To-Do список</h2>
 
-    <div class="form">
-        <input id="taskInput" placeholder="Наприклад: зробити практичну">
-        <button onclick="addTask()">Додати</button>
-    </div>
+<!-- TODO -->
 
-    <div id="taskList"></div>
+<section id="todo" class="section">
+
+<div class="card">
+
+<h2>✅ Мої завдання</h2>
+
+<input
+id="taskInput"
+placeholder="Наприклад: зробити практичну">
+
+<button class="primary"
+onclick="addTask()">
++ Додати завдання
+</button>
+
+<div id="tasks"></div>
+
+</div>
+
 </section>
 
-<section id="grades" class="page">
-    <h2>📊 Мої оцінки</h2>
 
-    <div class="form">
-        <input id="subject" placeholder="Предмет">
-        <input id="grade" type="number" min="1" max="12" placeholder="Оцінка">
-        <button onclick="addGrade()">Додати</button>
-    </div>
+<!-- НОТАТКИ -->
 
-    <div id="gradeList"></div>
+<section id="notes" class="section">
 
-    <div class="average">
-        Середній бал: <b id="average">—</b>
-    </div>
+<div class="card">
+
+<h2>📝 Мої нотатки</h2>
+
+<textarea
+id="notesBox"
+rows="12"
+placeholder="Запиши тут важливу інформацію...">
+</textarea>
+
+<button class="primary"
+onclick="saveNotes()">
+💾 Зберегти нотатки
+</button>
+
+<p id="saved"></p>
+
+</div>
+
 </section>
 
-<section id="deadlines" class="page">
-    <h2>⏳ Дедлайни</h2>
 
-    <div class="form">
-        <input id="deadlineName" placeholder="Назва роботи">
-        <input id="deadlineDate" type="date">
-        <button onclick="addDeadline()">Додати</button>
-    </div>
+<!-- ТАЙМЕР -->
 
-    <div id="deadlineList"></div>
+<section id="timer" class="section">
+
+<div class="card">
+
+<h2>⏱️ Фокус-таймер</h2>
+
+<div class="timer"
+id="timerDisplay">
+25:00
+</div>
+
+<div class="timer-buttons">
+
+<button class="primary"
+onclick="startTimer()">
+▶ Старт
+</button>
+
+<button class="primary"
+onclick="pauseTimer()">
+⏸ Пауза
+</button>
+
+<button class="danger"
+onclick="resetTimer()">
+↻ Скинути
+</button>
+
+</div>
+
+</div>
+
 </section>
 
-<section id="notes" class="page">
-    <h2>📝 Швидкі нотатки</h2>
 
-    <textarea id="notes" placeholder="Напиши тут важливу інформацію..."></textarea>
+<!-- ОЦІНКИ -->
 
-    <br>
+<section id="grades" class="section">
 
-    <button class="save-button" onclick="saveNotes()">
-        💾 Зберегти нотатки
-    </button>
+<div class="card">
 
-    <p id="saved"></p>
+<h2>📊 Калькулятор оцінок</h2>
+
+<input
+id="grade1"
+type="number"
+min="1"
+max="12"
+placeholder="Оцінка 1">
+
+<input
+id="grade2"
+type="number"
+min="1"
+max="12"
+placeholder="Оцінка 2">
+
+<input
+id="grade3"
+type="number"
+min="1"
+max="12"
+placeholder="Оцінка 3">
+
+<button class="primary"
+onclick="calculateGrade()">
+Порахувати середній бал
+</button>
+
+<div class="average"
+id="average">
+Введи оцінки
+</div>
+
+</div>
+
 </section>
 
 </main>
 
+
 <footer>
-    StudentHub • 11-ІТ
+
+StudentHub • 11-ІТ • Навчання стає простішим 🚀
+
 </footer>
+
 
 <script>
 
-let today = new Date();
 
-document.getElementById("day").textContent =
-    today.toLocaleDateString("uk-UA", {
-        weekday: "long"
-    });
+/* ПЕРЕМИКАННЯ РОЗДІЛІВ */
 
-document.getElementById("date").textContent =
-    today.toLocaleDateString("uk-UA");
+function showSection(id,button){
 
+document
+.querySelectorAll('.section')
+.forEach(section=>{
+section.classList.remove('active');
+});
 
-function showPage(page) {
-    document.querySelectorAll(".page").forEach(function(item) {
-        item.classList.remove("active");
-    });
+document
+.getElementById(id)
+.classList.add('active');
 
-    document.getElementById(page).classList.add("active");
+document
+.querySelectorAll('nav button')
+.forEach(btn=>{
+btn.classList.remove('active');
+});
+
+button.classList.add('active');
+
 }
 
 
-let schedule = {
+/* РОЗКЛАД */
 
-"Понеділок": [
-["1", "Українська мова", "Миронюк"],
-["2", "Хімія", "Зіняч"],
-["3", "Географія", "Малимон"],
-["4", "Фізика, астрономія", "Грицик"],
-["5", "Математика", "Герасимчук"]
+function showWeek(type,button){
+
+document.getElementById('numerator').style.display='none';
+
+document.getElementById('denominator').style.display='none';
+
+document.getElementById('normal').style.display='none';
+
+document.getElementById('saturday').style.display='none';
+
+
+if(type==='numerator'){
+
+document.getElementById('numerator').style.display='block';
+
+}
+
+if(type==='denominator'){
+
+document.getElementById('denominator').style.display='block';
+
+}
+
+if(type==='normal'){
+
+document.getElementById('normal').style.display='block';
+
+}
+
+if(type==='saturday'){
+
+document.getElementById('saturday').style.display='block';
+
+showSaturday();
+
+}
+
+
+document
+.querySelectorAll('.week-btn')
+.forEach(btn=>{
+btn.classList.remove('active');
+});
+
+button.classList.add('active');
+
+}
+
+
+/* СУБОТА */
+
+const saturdayData={
+
+mondayNum:[
+'Українська література',
+'Географія',
+'Математика'
 ],
 
-"Вівторок": [
-["1", "Українська література", "Миронюк"],
-["2", "Захист України", "Шмігель"],
-["3", "Математика", "Герасимчук"],
-["4", "Фізика, астрономія", "Грицик"]
+mondayDen:[
+'Хімія',
+'Фізика',
+'Математика'
 ],
 
-"Середа": [
-["1", "Хімія", "Зіняч"],
-["2", "Інформатика", "Гребіненко"],
-["3", "Фізична культура", "Турчик"],
-["4", "Українська мова", "Миронюк"],
-["5", "Біологія, екологія", "Зіняч"]
+tuesday:[
+'Фізкультура',
+'Українська мова',
+'Біологія'
 ],
 
-"Четвер": [
-["1", "Українська література", "Миронюк"],
-["2", "Захист України", "Шмігель"],
-["3", "Математика", "Герасимчук"],
-["4", "Фізика, астрономія", "Грицик"]
+wednesday:[
+'Хімія',
+'Фізика',
+'Інформатика'
 ],
 
-"П'ятниця": [
-["1", "Зарубіжна література", "Ткачук"],
-["2", "Історія: Україна і світ", "Коняхін"],
-["3", "Іноземна мова", "Музичук"]
+thursday:[
+'Зарубіжна література',
+'Історія',
+'Англійська мова'
+],
+
+friday:[
+'Українська література',
+'Захист України',
+'Математика',
+'Фізика'
 ]
 
 };
 
 
-function showSchedule() {
+function showSaturday(){
 
-    let day = document.getElementById("daySelect").value;
-    let list = document.getElementById("scheduleList");
+let day=
+document.getElementById('saturdayDay').value;
 
-    list.innerHTML = "";
+let lessons=
+saturdayData[day];
 
-    schedule[day].forEach(function(lesson) {
+let box=
+document.getElementById('saturdaySchedule');
 
-        list.innerHTML += `
-        <div class="lesson">
+box.innerHTML='';
 
-            <div class="lesson-number">
-                ${lesson[0]} ПАРА
-            </div>
+lessons.forEach((lesson,index)=>{
 
-            <div class="lesson-info">
-                <h3>${lesson[1]}</h3>
-                <p>${lesson[2]}</p>
-            </div>
+box.innerHTML+=`
 
-            <div>11-ІТ</div>
+<div class="lesson">
 
-        </div>
-        `;
-    });
-}
+<div class="number">
+${index+1}
+</div>
 
-showSchedule();
+<div>
+<strong>${lesson}</strong>
+</div>
 
+</div>
 
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+`;
 
-function addTask() {
+});
 
-    let input = document.getElementById("taskInput");
-    let text = input.value.trim();
-
-    if (text === "") return;
-
-    tasks.push({
-        text: text,
-        done: false
-    });
-
-    input.value = "";
-
-    saveTasks();
-    showTasks();
 }
 
 
-function showTasks() {
+/* TODO */
 
-    let list = document.getElementById("taskList");
-    list.innerHTML = "";
+let tasks=
+JSON.parse(
+localStorage.getItem('tasks') || '[]'
+);
 
-    tasks.forEach(function(task, index) {
 
-        list.innerHTML += `
-        <div class="task ${task.done ? "done" : ""}">
+function renderTasks(){
 
-            <input
-                type="checkbox"
-                ${task.done ? "checked" : ""}
-                onchange="completeTask(${index})">
+let box=
+document.getElementById('tasks');
 
-            <span>${task.text}</span>
+box.innerHTML='';
 
-            <button onclick="deleteTask(${index})">
-                Видалити
-            </button>
+tasks.forEach((task,index)=>{
 
-        </div>
-        `;
-    });
+box.innerHTML+=`
+
+<div class="todo-item
+${task.done?'done':''}">
+
+<span onclick="toggleTask(${index})">
+${task.text}
+</span>
+
+<button
+class="danger"
+onclick="deleteTask(${index})">
+✕
+</button>
+
+</div>
+
+`;
+
+});
+
 }
 
 
-function completeTask(index) {
+function addTask(){
 
-    tasks[index].done = !tasks[index].done;
+let input=
+document.getElementById('taskInput');
 
-    saveTasks();
-    showTasks();
+if(input.value.trim()===''){
+return;
+}
+
+tasks.push({
+text:input.value,
+done:false
+});
+
+input.value='';
+
+saveTasks();
+
 }
 
 
-function deleteTask(index) {
+function toggleTask(index){
 
-    tasks.splice(index, 1);
+tasks[index].done=
+!tasks[index].done;
 
-    saveTasks();
-    showTasks();
+saveTasks();
+
 }
 
 
-function saveTasks() {
+function deleteTask(index){
 
-    localStorage.setItem(
-        "tasks",
-        JSON.stringify(tasks)
-    );
-}
+tasks.splice(index,1);
 
-showTasks();
+saveTasks();
 
-
-let grades = JSON.parse(localStorage.getItem("grades")) || [];
-
-function addGrade() {
-
-    let subject = document.getElementById("subject").value;
-    let grade = document.getElementById("grade").value;
-
-    if (subject === "" || grade === "") return;
-
-    grades.push({
-        subject: subject,
-        grade: Number(grade)
-    });
-
-    document.getElementById("subject").value = "";
-    document.getElementById("grade").value = "";
-
-    saveGrades();
-    showGrades();
 }
 
 
-function showGrades() {
+function saveTasks(){
 
-    let list = document.getElementById("gradeList");
-    list.innerHTML = "";
+localStorage.setItem(
+'tasks',
+JSON.stringify(tasks)
+);
 
-    let sum = 0;
+renderTasks();
 
-    grades.forEach(function(item, index) {
+}
 
-        sum += item.grade;
+renderTasks();
 
-        list.innerHTML += `
-        <div class="grade">
 
-            <span>${item.subject}</span>
+/* НОТАТКИ */
 
-            <strong>${item.grade}</strong>
+document.getElementById('notesBox').value=
+localStorage.getItem('notes') || '';
 
-            <button onclick="deleteGrade(${index})">
-                Видалити
-            </button>
 
-        </div>
-        `;
-    });
+function saveNotes(){
 
-    if (grades.length > 0) {
+let notes=
+document.getElementById('notesBox').value;
 
-        document.getElementById("average").textContent =
-            (sum / grades.length).toFixed(2);
+localStorage.setItem(
+'notes',
+notes
+);
 
-    } else {
+document.getElementById('saved').innerText=
+'✓ Нотатки збережено';
 
-        document.getElementById("average").textContent = "—";
-    }
 }
 
 
-function deleteGrade(index) {
+/* ТАЙМЕР */
 
-    grades.splice(index, 1);
+let time=25*60;
 
-    saveGrades();
-    showGrades();
+let timerInterval=null;
+
+
+function updateTimer(){
+
+let minutes=
+Math.floor(time/60);
+
+let seconds=
+time%60;
+
+document.getElementById(
+'timerDisplay'
+).innerText=
+
+String(minutes)
+.padStart(2,'0')
+
++
+
+':'+
+
+String(seconds)
+.padStart(2,'0');
+
 }
 
 
-function saveGrades() {
+function startTimer(){
 
-    localStorage.setItem(
-        "grades",
-        JSON.stringify(grades)
-    );
+if(timerInterval){
+return;
 }
 
-showGrades();
+timerInterval=
+setInterval(()=>{
 
+if(time>0){
 
-let deadlines =
-    JSON.parse(localStorage.getItem("deadlines")) || [];
+time--;
 
+updateTimer();
 
-function addDeadline() {
-
-    let name = document.getElementById("deadlineName").value;
-    let date = document.getElementById("deadlineDate").value;
-
-    if (name === "" || date === "") return;
-
-    deadlines.push({
-        name: name,
-        date: date
-    });
-
-    document.getElementById("deadlineName").value = "";
-    document.getElementById("deadlineDate").value = "";
-
-    saveDeadlines();
-    showDeadlines();
 }
 
+else{
 
-function showDeadlines() {
+clearInterval(timerInterval);
 
-    let list = document.getElementById("deadlineList");
-    list.innerHTML = "";
+timerInterval=null;
 
-    deadlines.forEach(function(item, index) {
+alert(
+'Час вийшов! Зроби перерву ☕'
+);
 
-        list.innerHTML += `
-        <div class="deadline">
+}
 
-            <h3>${item.name}</h3>
+},1000);
 
-            <p>📅 ${item.date}</p>
-
-            <button onclick="deleteDeadline(${index})">
-                Видалити
-            </button>
-
-        </div>
-        `;
-    });
 }
 
 
-function deleteDeadline(index) {
+function pauseTimer(){
 
-    deadlines.splice(index, 1);
+clearInterval(timerInterval);
 
-    saveDeadlines();
-    showDeadlines();
+timerInterval=null;
+
 }
 
 
-function saveDeadlines() {
+function resetTimer(){
 
-    localStorage.setItem(
-        "deadlines",
-        JSON.stringify(deadlines)
-    );
+pauseTimer();
+
+time=25*60;
+
+updateTimer();
+
 }
 
-showDeadlines();
 
+/* ОЦІНКИ */
 
-let notes = document.getElementById("notes");
+function calculateGrade(){
 
-notes.value =
-    localStorage.getItem("notes") || "";
+let a=
+Number(
+document.getElementById('grade1').value
+);
 
+let b=
+Number(
+document.getElementById('grade2').value
+);
 
-function saveNotes() {
+let c=
+Number(
+document.getElementById('grade3').value
+);
 
-    localStorage.setItem(
-        "notes",
-        notes.value
-    );
+let grades=
+[a,b,c].filter(x=>x>0);
 
-    document.getElementById("saved").textContent =
-        "✓ Нотатки збережено";
+if(grades.length===0){
+
+document.getElementById(
+'average'
+).innerText=
+'Введи оцінки';
+
+return;
+
 }
+
+let avg=
+grades.reduce(
+(sum,x)=>sum+x,0
+)
+/
+grades.length;
+
+document.getElementById(
+'average'
+).innerText=
+'Середній бал: '
++
+avg.toFixed(2);
+
+}
+
+
+/* ТЕМА */
+
+function toggleTheme(){
+
+document.body.classList.toggle('light');
+
+localStorage.setItem(
+'theme',
+document.body.classList.contains('light')
+);
+
+}
+
+
+if(
+localStorage.getItem('theme')
+==='true'
+){
+
+document.body.classList.add('light');
+
+}
+
+
+/* ЦИТАТА */
+
+const quotes=[
+
+'Маленькі кроки щодня приводять до великих результатів.',
+
+'Не бійся помилятися — бійся не пробувати.',
+
+'Твоє майбутнє створюється сьогодні.',
+
+'Знання — це твій найкращий інструмент.',
+
+'Складне стає простим після практики.'
+
+];
+
+document.getElementById(
+'quote'
+).innerText=
+
+quotes[
+Math.floor(
+Math.random()*quotes.length
+)
+];
+
 
 </script>
 
