@@ -4,432 +4,966 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>StudentHub | 11-ІТ</title>
+<title>StudentHub — студентський портал</title>
 
 <style>
+
+/* =========================
+   ОСНОВНІ НАЛАШТУВАННЯ
+========================= */
+
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
-    font-family:Arial,sans-serif;
+}
+
+:root{
+    --bg:#08111f;
+    --card:#101b2f;
+    --card2:#172640;
+    --text:#f5f7ff;
+    --muted:#9caac4;
+    --accent:#5eead4;
+    --accent2:#60a5fa;
+    --danger:#fb7185;
+    --success:#4ade80;
+    --border:rgba(255,255,255,.10);
+    --shadow:0 15px 40px rgba(0,0,0,.18);
+}
+
+body.light{
+    --bg:#eef4fb;
+    --card:#ffffff;
+    --card2:#f2f6fc;
+    --text:#172033;
+    --muted:#64748b;
+    --border:rgba(20,32,51,.12);
+    --shadow:0 15px 40px rgba(40,60,90,.10);
 }
 
 body{
-    background:#07111f;
-    color:white;
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(circle at 10% 10%,rgba(96,165,250,.16),transparent 30%),
+        radial-gradient(circle at 90% 20%,rgba(94,234,212,.13),transparent 30%),
+        var(--bg);
+    color:var(--text);
     min-height:100vh;
     transition:.3s;
 }
 
-body.light{
-    background:#f1f5f9;
-    color:#172033;
-}
-
-header{
-    padding:40px;
-    min-height:230px;
-    background:linear-gradient(135deg,#07111f,#102a43,#087f6b);
-    position:relative;
-    overflow:hidden;
-}
-
-header:before{
-    content:"";
-    position:absolute;
-    width:350px;
-    height:350px;
-    border-radius:50%;
-    background:#00e5a0;
-    opacity:.12;
-    right:-100px;
-    top:-150px;
-}
-
-header h1{
-    font-size:46px;
-    position:relative;
-}
-
-header p{
-    color:#b7c7d9;
-    margin-top:10px;
-    position:relative;
-}
-
-.student{
-    display:inline-block;
-    margin-top:25px;
-    padding:12px 18px;
-    background:rgba(255,255,255,.1);
-    border-radius:15px;
-    position:relative;
-}
-
-nav{
-    display:flex;
-    gap:10px;
-    padding:15px;
-    background:#0b1728;
-    overflow:auto;
-    position:sticky;
-    top:0;
-    z-index:10;
-}
-
-nav button{
-    border:0;
-    background:#13263d;
-    color:white;
-    padding:12px 18px;
-    border-radius:12px;
-    cursor:pointer;
-    white-space:nowrap;
-}
-
-nav button:hover,
-nav button.active{
-    background:#00b887;
-}
-
-body.light nav{
-    background:white;
-}
-
-body.light nav button{
-    background:#e2e8f0;
-    color:#172033;
-}
-
-main{
-    max-width:1200px;
-    margin:auto;
-    padding:30px 20px;
-}
-
-.section{
-    display:none;
-}
-
-.section.active{
-    display:block;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-}
-
-.card{
-    background:#0e1c2f;
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:22px;
-    padding:25px;
-    box-shadow:0 10px 30px rgba(0,0,0,.2);
-}
-
-body.light .card{
-    background:white;
-    color:#172033;
-}
-
-.card h2{
-    margin-bottom:15px;
-}
-
-.big{
-    font-size:35px;
-    color:#00d99b;
-    font-weight:bold;
-}
-
-.stat{
-    text-align:center;
-    padding:25px;
-}
-
-.stat span{
-    display:block;
-    font-size:35px;
-    color:#00d99b;
-    font-weight:bold;
-}
-
+button,
 input,
 textarea,
 select{
-    width:100%;
-    padding:13px;
-    margin:8px 0;
-    border-radius:10px;
-    border:1px solid #334155;
-    background:#07111f;
-    color:white;
-}
-
-body.light input,
-body.light textarea,
-body.light select{
-    background:#f8fafc;
-    color:#172033;
+    font-family:inherit;
 }
 
 button{
     cursor:pointer;
 }
 
-.primary{
-    background:#00b887;
-    color:white;
-    border:0;
-    padding:12px 18px;
-    border-radius:10px;
-    font-weight:bold;
+button:active{
+    transform:scale(.97);
 }
 
-.danger{
-    background:#ef4444;
-    color:white;
-    border:0;
-    padding:8px 12px;
-    border-radius:8px;
+/* =========================
+   HEADER
+========================= */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    backdrop-filter:blur(18px);
+    background:rgba(8,17,31,.82);
+    border-bottom:1px solid var(--border);
 }
 
-.schedule-controls{
+body.light header{
+    background:rgba(255,255,255,.85);
+}
+
+.navbar{
+    max-width:1250px;
+    margin:auto;
+    min-height:76px;
+    padding:12px 22px;
     display:flex;
-    gap:10px;
-    margin:20px 0;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:21px;
+    font-weight:900;
+    white-space:nowrap;
+}
+
+.logo-icon{
+    width:43px;
+    height:43px;
+    display:grid;
+    place-items:center;
+    border-radius:14px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    color:#07111f;
+    font-size:21px;
+}
+
+nav{
+    display:flex;
+    gap:6px;
     flex-wrap:wrap;
-}
-
-.week-btn{
-    padding:12px 25px;
-    border:0;
-    border-radius:12px;
-    background:#1e293b;
-    color:white;
-}
-
-.week-btn.active{
-    background:#00b887;
-}
-
-.day{
-    margin-bottom:25px;
-}
-
-.day h3{
-    background:linear-gradient(90deg,#00b887,#087f6b);
-    padding:15px;
-    border-radius:15px 15px 0 0;
-}
-
-.lesson{
-    background:#0e1c2f;
-    border-bottom:1px solid #26384e;
-    padding:15px;
-    display:flex;
-    gap:15px;
-    align-items:center;
-}
-
-body.light .lesson{
-    background:white;
-    color:#172033;
-    border-color:#ddd;
-}
-
-.number{
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    background:#00b887;
-    display:flex;
-    align-items:center;
     justify-content:center;
-    font-weight:bold;
-    flex-shrink:0;
 }
 
-.lesson strong{
+.nav-btn{
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    padding:10px 13px;
+    border-radius:11px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.nav-btn:hover,
+.nav-btn.active{
+    background:var(--card2);
+    color:var(--text);
+}
+
+.theme-btn{
+    width:43px;
+    height:43px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    font-size:18px;
+}
+
+/* =========================
+   ОСНОВНА ЧАСТИНА
+========================= */
+
+main{
+    max-width:1250px;
+    margin:auto;
+    padding:35px 22px 60px;
+}
+
+.page{
+    display:none;
+    animation:showPage .3s ease;
+}
+
+.page.active{
     display:block;
 }
 
-.lesson small{
-    color:#94a3b8;
+@keyframes showPage{
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
-.todo-item{
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    position:relative;
+    overflow:hidden;
+    padding:45px;
+    min-height:350px;
+    border:1px solid var(--border);
+    border-radius:30px;
+    background:
+        linear-gradient(135deg,
+        rgba(96,165,250,.16),
+        rgba(94,234,212,.06)),
+        var(--card);
+    box-shadow:var(--shadow);
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:330px;
+    height:330px;
+    right:-130px;
+    top:-130px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    opacity:.10;
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 13px;
+    border-radius:30px;
+    background:rgba(94,234,212,.12);
+    color:var(--accent);
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:.5px;
+    margin-bottom:18px;
+}
+
+.hero h1{
+    max-width:800px;
+    font-size:clamp(36px,6vw,64px);
+    line-height:1;
+    margin-bottom:20px;
+}
+
+.gradient{
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    max-width:760px;
+    color:var(--muted);
+    font-size:17px;
+    line-height:1.75;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:12px;
+    margin-top:28px;
+    flex-wrap:wrap;
+}
+
+.primary{
+    border:0;
+    padding:13px 20px;
+    border-radius:12px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    color:#06111d;
+    font-weight:900;
+}
+
+.secondary{
+    border:1px solid var(--border);
+    padding:13px 20px;
+    border-radius:12px;
+    background:var(--card2);
+    color:var(--text);
+    font-weight:800;
+}
+
+/* =========================
+   СТАТИСТИКА
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-top:20px;
+}
+
+.stat{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:19px;
+    padding:22px;
+    box-shadow:var(--shadow);
+}
+
+.stat-icon{
+    font-size:25px;
+    margin-bottom:12px;
+}
+
+.stat strong{
+    display:block;
+    font-size:29px;
+    margin-bottom:5px;
+}
+
+.stat span{
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* =========================
+   ЗАГОЛОВКИ
+========================= */
+
+.section-title{
+    margin:35px 0 18px;
+}
+
+.section-title h2{
+    font-size:28px;
+}
+
+.section-title p{
+    color:var(--muted);
+    margin-top:7px;
+    line-height:1.5;
+}
+
+/* =========================
+   КАРТКИ
+========================= */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:23px;
+    box-shadow:var(--shadow);
+    transition:.2s;
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    border-color:rgba(94,234,212,.35);
+}
+
+.card-icon{
+    width:50px;
+    height:50px;
+    display:grid;
+    place-items:center;
+    border-radius:15px;
+    background:var(--card2);
+    font-size:22px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    margin-bottom:8px;
+}
+
+.card p{
+    color:var(--muted);
+    line-height:1.65;
+}
+
+/* =========================
+   РОЗКЛАД
+========================= */
+
+.schedule-buttons{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+}
+
+.day-btn{
+    padding:11px 15px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:var(--card);
+    color:var(--muted);
+    font-weight:800;
+}
+
+.day-btn.active{
+    color:#06111d;
+    background:var(--accent);
+}
+
+.schedule-top{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:14px;
-    margin:8px 0;
-    background:#13263d;
-    border-radius:12px;
-}
-
-body.light .todo-item{
-    background:#e8eef5;
-}
-
-.todo-item.done span{
-    text-decoration:line-through;
-    opacity:.5;
-}
-
-.timer{
-    font-size:70px;
-    text-align:center;
-    margin:25px;
-    color:#00d99b;
-    font-weight:bold;
-}
-
-.timer-buttons{
-    display:flex;
-    justify-content:center;
     gap:10px;
+    padding:18px 20px;
+    border:1px solid var(--border);
+    border-radius:18px 18px 0 0;
+    background:var(--card);
+}
+
+.schedule-top span{
+    color:var(--muted);
+    font-size:14px;
+}
+
+.lesson{
+    display:grid;
+    grid-template-columns:65px 1fr 120px 45px;
+    gap:15px;
+    align-items:center;
+    padding:17px 20px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-top:0;
+}
+
+.lesson:last-child{
+    border-radius:0 0 18px 18px;
+}
+
+.lesson-number{
+    font-size:24px;
+    font-weight:900;
+    color:var(--accent);
+}
+
+.lesson h3{
+    font-size:16px;
+}
+
+.lesson p{
+    margin-top:5px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.lesson-time{
+    color:var(--muted);
+    font-size:13px;
+    text-align:right;
+}
+
+.edit-lesson{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:var(--card2);
+    color:var(--text);
+}
+
+/* =========================
+   РЕДАГУВАННЯ
+========================= */
+
+.editor{
+    margin-top:20px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:22px;
+}
+
+.editor h3{
+    margin-bottom:16px;
+}
+
+.edit-row{
+    display:grid;
+    grid-template-columns:70px 1fr 1fr 45px;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+.field{
+    width:100%;
+    border:1px solid var(--border);
+    background:var(--card2);
+    color:var(--text);
+    border-radius:11px;
+    padding:12px;
+    outline:none;
+}
+
+.field:focus{
+    border-color:var(--accent);
+}
+
+.delete-btn{
+    border:0;
+    background:transparent;
+    color:var(--danger);
+    font-size:18px;
+}
+
+.editor-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+    flex-wrap:wrap;
+}
+
+/* =========================
+   TO DO
+========================= */
+
+.add-box{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.input{
+    width:100%;
+    padding:14px 15px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    outline:none;
+    background:var(--card);
+    color:var(--text);
+}
+
+.input:focus{
+    border-color:var(--accent);
+}
+
+.todo{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:16px;
+    margin-bottom:10px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:15px;
+}
+
+.todo-check{
+    width:20px;
+    height:20px;
+}
+
+.todo-text{
+    flex:1;
+}
+
+.todo.done .todo-text{
+    text-decoration:line-through;
+    color:var(--muted);
+}
+
+.todo-delete{
+    border:0;
+    background:transparent;
+    color:var(--danger);
+    font-size:18px;
+}
+
+/* =========================
+   НОТАТКИ
+========================= */
+
+.notes-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+textarea{
+    width:100%;
+    min-height:270px;
+    resize:vertical;
+    padding:15px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    background:var(--card2);
+    color:var(--text);
+    outline:none;
+    margin-top:15px;
+    line-height:1.6;
+}
+
+textarea:focus{
+    border-color:var(--accent);
+}
+
+.save-info{
+    color:var(--success);
+    font-size:13px;
+    margin-top:10px;
+}
+
+/* =========================
+   ОЦІНКИ
+========================= */
+
+.grade-list{
+    max-width:800px;
+}
+
+.grade-row{
+    display:grid;
+    grid-template-columns:1fr 140px 45px;
+    gap:10px;
+    margin-bottom:10px;
 }
 
 .average{
     margin-top:20px;
-    padding:20px;
-    background:#073f35;
-    border-radius:15px;
-    font-size:20px;
+    padding:28px;
+    text-align:center;
+    border-radius:20px;
+    background:var(--card);
+    border:1px solid var(--border);
 }
 
-body.light .average{
-    background:#dff7ef;
+.average p{
+    color:var(--muted);
+    margin-bottom:7px;
 }
+
+.average strong{
+    font-size:46px;
+    color:var(--accent);
+}
+
+/* =========================
+   ПРОФІЛЬ
+========================= */
+
+.profile{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:20px;
+}
+
+.profile-photo{
+    min-height:220px;
+    display:grid;
+    place-items:center;
+    border-radius:22px;
+    background:
+        linear-gradient(135deg,var(--accent),var(--accent2));
+    color:#06111d;
+    font-size:70px;
+    font-weight:900;
+}
+
+.profile-info{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:28px;
+}
+
+.profile-info h2{
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.profile-info p{
+    color:var(--muted);
+    line-height:1.7;
+    margin-bottom:8px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:300;
+    background:rgba(0,0,0,.65);
+    padding:20px;
+    align-items:center;
+    justify-content:center;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:520px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:25px;
+}
+
+.modal-box h2{
+    margin-bottom:18px;
+}
+
+.modal-actions{
+    display:flex;
+    gap:10px;
+    margin-top:18px;
+}
+
+/* =========================
+   FOOTER
+========================= */
 
 footer{
+    max-width:1250px;
+    margin:auto;
+    padding:25px 22px;
+    color:var(--muted);
     text-align:center;
-    padding:30px;
-    color:#64748b;
+    border-top:1px solid var(--border);
 }
 
-@media(max-width:600px){
-    header{
-        padding:25px;
+/* =========================
+   АДАПТАЦІЯ
+========================= */
+
+@media(max-width:900px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    header h1{
-        font-size:32px;
+    .grid{
+        grid-template-columns:1fr 1fr;
     }
 
-    .timer{
-        font-size:48px;
+    .navbar{
+        flex-wrap:wrap;
+    }
+
+    nav{
+        order:3;
+        width:100%;
+        overflow-x:auto;
+        justify-content:flex-start;
+        flex-wrap:nowrap;
+    }
+
+    .profile{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:650px){
+
+    main{
+        padding:20px 14px 45px;
+    }
+
+    .hero{
+        padding:27px 22px;
+    }
+
+    .hero h1{
+        font-size:39px;
+    }
+
+    .stats,
+    .grid,
+    .notes-grid{
+        grid-template-columns:1fr;
+    }
+
+    .add-box{
+        flex-direction:column;
     }
 
     .lesson{
+        grid-template-columns:45px 1fr 40px;
+    }
+
+    .lesson-time{
+        display:none;
+    }
+
+    .edit-row{
+        grid-template-columns:55px 1fr 45px;
+    }
+
+    .edit-row input:nth-child(3){
+        grid-column:2 / 4;
+    }
+
+    .grade-row{
+        grid-template-columns:1fr 100px 40px;
+    }
+
+    .schedule-top{
+        flex-direction:column;
         align-items:flex-start;
     }
 }
+
 </style>
 </head>
 
 <body>
 
+<!-- =========================
+     HEADER
+========================= -->
+
 <header>
 
-<h1>StudentHub</h1>
+<div class="navbar">
 
-<p>
-Твій цифровий помічник студента 11-ІТ
-</p>
+<div class="logo">
+    <div class="logo-icon">🎓</div>
+    <span>StudentHub</span>
+</div>
 
-<div class="student">
-👩‍💻 Вероніка • 11-ІТ
+<nav>
+
+<button class="nav-btn active"
+onclick="showPage('home',this)">
+🏠 Головна
+</button>
+
+<button class="nav-btn"
+onclick="showPage('schedule',this)">
+📅 Розклад
+</button>
+
+<button class="nav-btn"
+onclick="showPage('tasks',this)">
+✅ Завдання
+</button>
+
+<button class="nav-btn"
+onclick="showPage('notes',this)">
+📝 Нотатки
+</button>
+
+<button class="nav-btn"
+onclick="showPage('grades',this)">
+📊 Оцінки
+</button>
+
+<button class="nav-btn"
+onclick="showPage('profile',this)">
+👤 Профіль
+</button>
+
+</nav>
+
+<button class="theme-btn"
+onclick="toggleTheme()"
+id="themeButton">
+🌙
+</button>
+
 </div>
 
 </header>
 
 
-<nav>
-
-<button class="active"
-onclick="showSection('home',this)">
-🏠 Головна
-</button>
-
-<button onclick="showSection('schedule',this)">
-📅 Розклад
-</button>
-
-<button onclick="showSection('todo',this)">
-✅ To-Do
-</button>
-
-<button onclick="showSection('notes',this)">
-📝 Нотатки
-</button>
-
-<button onclick="showSection('timer',this)">
-⏱️ Таймер
-</button>
-
-<button onclick="showSection('grades',this)">
-📊 Оцінки
-</button>
-
-<button onclick="toggleTheme()">
-🌙 Тема
-</button>
-
-</nav>
-
+<!-- =========================
+     MAIN
+========================= -->
 
 <main>
 
 
-<!-- ГОЛОВНА -->
+<!-- =========================
+     ГОЛОВНА
+========================= -->
 
-<section id="home" class="section active">
+<section id="home" class="page active">
+
+<div class="hero">
+
+<div class="badge">
+DIGITAL STUDENT PORTAL
+</div>
+
+<h1>
+Твій навчальний простір
+<span class="gradient">StudentHub</span>
+</h1>
+
+<p>
+StudentHub — це персональний цифровий простір студента,
+де можна зручно переглядати розклад, контролювати навчальні
+завдання, зберігати власні нотатки та стежити за оцінками.
+</p>
+
+<div class="hero-buttons">
+
+<button class="primary"
+onclick="openSection('schedule')">
+📅 Переглянути розклад
+</button>
+
+<button class="secondary"
+onclick="openSection('tasks')">
+✅ Мої завдання
+</button>
+
+</div>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+<div class="stat-icon">📚</div>
+<strong id="subjectCount">18+</strong>
+<span>Навчальних предметів</span>
+</div>
+
+<div class="stat">
+<div class="stat-icon">📅</div>
+<strong>6</strong>
+<span>Навчальних днів</span>
+</div>
+
+<div class="stat">
+<div class="stat-icon">⚙️</div>
+<strong>5</strong>
+<span>Основних функцій</span>
+</div>
+
+<div class="stat">
+<div class="stat-icon">💾</div>
+<strong>100%</strong>
+<span>Дані зберігаються</span>
+</div>
+
+</div>
+
+
+<div class="section-title">
+
+<h2>
+Можливості StudentHub
+</h2>
+
+<p>
+Усі основні інструменти для навчання в одному місці.
+</p>
+
+</div>
+
 
 <div class="grid">
 
 <div class="card">
 
-<h2>👋 Привіт!</h2>
+<div class="card-icon">📅</div>
+
+<h3>
+Інтерактивний розклад
+</h3>
 
 <p>
-Ласкаво просимо до твого StudentHub.
-</p>
-
-<br>
-
-<p>
-Тут можна контролювати навчання,
-розклад, завдання та оцінки.
-</p>
-
-</div>
-
-
-<div class="card stat">
-
-<h2>📚 Предмети</h2>
-
-<span>12+</span>
-
-<p>
-навчальних дисциплін
-</p>
-
-</div>
-
-
-<div class="card stat">
-
-<h2>🎯 Мета</h2>
-
-<span>200</span>
-
-<p>
-балів
+Обирай потрібний день, переглядай предмети та
+редагуй розклад прямо на сторінці.
 </p>
 
 </div>
@@ -437,43 +971,80 @@ onclick="showSection('home',this)">
 
 <div class="card">
 
-<h2>💡 Цитата дня</h2>
+<div class="card-icon">✅</div>
 
-<p id="quote"></p>
+<h3>
+Список завдань
+</h3>
+
+<p>
+Додавай домашні завдання, відмічай виконані
+та видаляй непотрібні записи.
+</p>
 
 </div>
-
-</div>
-
-
-<br>
 
 
 <div class="card">
 
-<h2>🚀 Мій StudentHub</h2>
+<div class="card-icon">📝</div>
 
-<div class="grid">
+<h3>
+Особисті нотатки
+</h3>
 
-<div class="stat">
-<span>📅</span>
-<p>Розклад</p>
+<p>
+Зберігай конспекти, важливі думки, нагадування
+та інформацію для навчання.
+</p>
+
 </div>
 
-<div class="stat">
-<span>✅</span>
-<p>Завдання</p>
+
+<div class="card">
+
+<div class="card-icon">📊</div>
+
+<h3>
+Контроль оцінок
+</h3>
+
+<p>
+Внось свої оцінки та автоматично отримуй
+середній результат.
+</p>
+
 </div>
 
-<div class="stat">
-<span>📝</span>
-<p>Нотатки</p>
+
+<div class="card">
+
+<div class="card-icon">👤</div>
+
+<h3>
+Профіль студента
+</h3>
+
+<p>
+Редагуй ім'я, групу, спеціальність та коротку
+інформацію про себе.
+</p>
+
 </div>
 
-<div class="stat">
-<span>📊</span>
-<p>Оцінки</p>
-</div>
+
+<div class="card">
+
+<div class="card-icon">🌙</div>
+
+<h3>
+Темна та світла тема
+</h3>
+
+<p>
+Змінюй зовнішній вигляд сайту одним натисканням.
+Обрана тема зберігається автоматично.
+</p>
 
 </div>
 
@@ -482,370 +1053,199 @@ onclick="showSection('home',this)">
 </section>
 
 
-<!-- РОЗКЛАД -->
+<!-- =========================
+     РОЗКЛАД
+========================= -->
 
-<section id="schedule" class="section">
+<section id="schedule" class="page">
 
-<div class="card">
+<div class="section-title">
 
-<h2>📅 Розклад 11-ІТ</h2>
+<h2>
+📅 Розклад занять
+</h2>
 
 <p>
-Вибери потрібний день або тиждень.
+Обери день. Розклад можна редагувати прямо на сайті.
 </p>
 
+</div>
 
-<div class="schedule-controls">
 
-<button class="week-btn active"
-onclick="showWeek('numerator',this)">
-Чисельник
+<div class="schedule-buttons">
+
+<button class="day-btn active"
+onclick="selectDay('monNum',this)">
+Пн — чисельник
 </button>
 
-<button class="week-btn"
-onclick="showWeek('denominator',this)">
-Знаменник
+<button class="day-btn"
+onclick="selectDay('monDen',this)">
+Пн — знаменник
 </button>
 
-<button class="week-btn"
-onclick="showWeek('normal',this)">
-Вт–Пт
+<button class="day-btn"
+onclick="selectDay('tue',this)">
+Вівторок
 </button>
 
-<button class="week-btn"
-onclick="showWeek('saturday',this)">
+<button class="day-btn"
+onclick="selectDay('wed',this)">
+Середа
+</button>
+
+<button class="day-btn"
+onclick="selectDay('thu',this)">
+Четвер
+</button>
+
+<button class="day-btn"
+onclick="selectDay('fri',this)">
+П’ятниця
+</button>
+
+<button class="day-btn"
+onclick="selectDay('sat',this)">
 Субота
 </button>
 
 </div>
 
 
-<!-- ЧИСЕЛЬНИК -->
+<div id="scheduleContainer"></div>
 
-<div id="numerator">
 
-<div class="day">
+<div class="editor">
 
-<h3>Понеділок — чисельник</h3>
+<h3>
+✏️ Редагувати цей день
+</h3>
 
-<div class="lesson">
-<div class="number">1</div>
-<div>
-<strong>Українська література</strong>
-</div>
-</div>
+<div id="scheduleEditor"></div>
 
-<div class="lesson">
-<div class="number">2</div>
-<div>
-<strong>Географія</strong>
-</div>
-</div>
+<div class="editor-buttons">
 
-<div class="lesson">
-<div class="number">3</div>
-<div>
-<strong>Математика</strong>
-</div>
-</div>
+<button class="secondary"
+onclick="addLesson()">
++ Додати заняття
+</button>
+
+<button class="primary"
+onclick="saveSchedule()">
+💾 Зберегти зміни
+</button>
 
 </div>
-
-</div>
-
-
-<!-- ЗНАМЕННИК -->
-
-<div id="denominator" style="display:none">
-
-<div class="day">
-
-<h3>Понеділок — знаменник</h3>
-
-<div class="lesson">
-<div class="number">1</div>
-<div>
-<strong>Хімія</strong>
-</div>
-</div>
-
-<div class="lesson">
-<div class="number">2</div>
-<div>
-<strong>Фізика</strong>
-</div>
-</div>
-
-<div class="lesson">
-<div class="number">3</div>
-<div>
-<strong>Математика</strong>
-</div>
-</div>
-
-</div>
-
-</div>
-
-
-<!-- ВІВТОРОК-П'ЯТНИЦЯ -->
-
-<div id="normal" style="display:none">
-
-
-<div class="day">
-
-<h3>Вівторок</h3>
-
-<div class="lesson">
-<div class="number">1</div>
-<div>
-<strong>Фізкультура</strong>
-</div>
-</div>
-
-<div class="lesson">
-<div class="number">2</div>
-<div>
-<strong>Українська мова</strong>
-</div>
-</div>
-
-<div class="lesson">
-<div class="number">3</div>
-<div>
-<strong>Біологія</strong>
-</div>
-</div>
-
-</div>
-
-
-<div class="day">
-
-<h3>Середа</h3>
-
-<div class="lesson">
-<div class="number">1</div>
-<div>
-<strong>Хімія</strong>
-</div>
-</div>
-
-<div class="lesson">
-<div class="number">2</div>
-<div>
-<strong>Фізика</strong>
-</div>
-</div>
-
-<div class="lesson">
-<div class="number">3</div>
-<div>
-<strong>Інформатика</strong>
-</div>
-</div>
-
-</div>
-
-
-<div class="day">
-
-<h3>Четвер</h3>
-
-<div class="lesson">
-<div class="number">1</div>
-<div>
-<strong>Зарубіжна література</strong>
-</div>
-</div>
-
-<div class="lesson">
-<div class="number">2</div>
-<div>
-<strong>Історія</strong>
-</div>
-</div>
-
-<div class="lesson">
-<div class="number">3</div>
-<div>
-<strong>Англійська мова</strong>
-</div>
-</div>
-
-</div>
-
-
-<div class="day">
-
-<h3>П'ятниця</h3>
-
-<div class="lesson">
-<div class="number">1</div>
-<div>
-<strong>Українська література</strong>
-</div>
-</div>
-
-<div class="lesson">
-<div class="number">2</div>
-<div>
-<strong>Захист України</strong>
-</div>
-</div>
-
-<div class="lesson">
-<div class="number">3</div>
-<div>
-<strong>Математика</strong>
-</div>
-</div>
-
-<div class="lesson">
-<div class="number">4</div>
-<div>
-<strong>Фізика</strong>
-</div>
-</div>
-
-</div>
-
-</div>
-
-
-<!-- СУБОТА -->
-
-<div id="saturday" style="display:none">
-
-<div class="day">
-
-<h3>📚 Субота</h3>
-
-<p style="padding:15px 0;color:#94a3b8">
-У суботу заняття проходять за розкладом
-одного з будніх днів.
-</p>
-
-<select id="saturdayDay"
-onchange="showSaturday()">
-
-<option value="mondayNum">
-Понеділок — чисельник
-</option>
-
-<option value="mondayDen">
-Понеділок — знаменник
-</option>
-
-<option value="tuesday">
-Вівторок
-</option>
-
-<option value="wednesday">
-Середа
-</option>
-
-<option value="thursday">
-Четвер
-</option>
-
-<option value="friday">
-П'ятниця
-</option>
-
-</select>
-
-<div id="saturdaySchedule"></div>
-
-</div>
-
-</div>
-
 
 </div>
 
 </section>
 
 
-<!-- TODO -->
+<!-- =========================
+     ЗАВДАННЯ
+========================= -->
 
-<section id="todo" class="section">
+<section id="tasks" class="page">
 
-<div class="card">
+<div class="section-title">
 
-<h2>✅ Мої завдання</h2>
+<h2>
+✅ Мої завдання
+</h2>
+
+<p>
+Створюй власний список навчальних справ.
+</p>
+
+</div>
+
+
+<div class="add-box">
 
 <input
+class="input"
 id="taskInput"
-placeholder="Наприклад: зробити практичну">
+placeholder="Наприклад: зробити реферат з історії">
 
 <button class="primary"
 onclick="addTask()">
-+ Додати завдання
++ Додати
 </button>
 
-<div id="tasks"></div>
-
 </div>
+
+
+<div id="taskList"></div>
 
 </section>
 
 
-<!-- НОТАТКИ -->
+<!-- =========================
+     НОТАТКИ
+========================= -->
 
-<section id="notes" class="section">
+<section id="notes" class="page">
+
+<div class="section-title">
+
+<h2>
+📝 Мої нотатки
+</h2>
+
+<p>
+Особистий цифровий блокнот для навчання.
+</p>
+
+</div>
+
+
+<div class="notes-grid">
+
 
 <div class="card">
 
-<h2>📝 Мої нотатки</h2>
+<h3>
+📖 Основні нотатки
+</h3>
+
+<p>
+Записуй тут конспекти, важливу інформацію
+або підготовку до занять.
+</p>
 
 <textarea
-id="notesBox"
-rows="12"
-placeholder="Запиши тут важливу інформацію...">
-</textarea>
+id="mainNotes"
+placeholder="Напиши свої нотатки..."></textarea>
 
 <button class="primary"
 onclick="saveNotes()">
-💾 Зберегти нотатки
+💾 Зберегти
 </button>
 
-<p id="saved"></p>
+<div id="notesMessage"
+class="save-info"></div>
 
 </div>
 
-</section>
-
-
-<!-- ТАЙМЕР -->
-
-<section id="timer" class="section">
 
 <div class="card">
 
-<h2>⏱️ Фокус-таймер</h2>
+<h3>
+💡 Швидкий запис
+</h3>
 
-<div class="timer"
-id="timerDisplay">
-25:00
-</div>
+<p>
+Для коротких нагадувань та ідей.
+</p>
 
-<div class="timer-buttons">
+<textarea
+id="quickNotes"
+placeholder="Наприклад: завтра взяти зошит..."></textarea>
 
-<button class="primary"
-onclick="startTimer()">
-▶ Старт
-</button>
-
-<button class="primary"
-onclick="pauseTimer()">
-⏸ Пауза
-</button>
-
-<button class="danger"
-onclick="resetTimer()">
-↻ Скинути
+<button class="secondary"
+onclick="saveQuickNotes()">
+Зберегти запис
 </button>
 
 </div>
@@ -855,43 +1255,112 @@ onclick="resetTimer()">
 </section>
 
 
-<!-- ОЦІНКИ -->
+<!-- =========================
+     ОЦІНКИ
+========================= -->
 
-<section id="grades" class="section">
+<section id="grades" class="page">
 
-<div class="card">
+<div class="section-title">
 
-<h2>📊 Калькулятор оцінок</h2>
+<h2>
+📊 Мої оцінки
+</h2>
 
-<input
-id="grade1"
-type="number"
-min="1"
-max="12"
-placeholder="Оцінка 1">
+<p>
+Додавай предмети та оцінки. Середній бал рахується автоматично.
+</p>
 
-<input
-id="grade2"
-type="number"
-min="1"
-max="12"
-placeholder="Оцінка 2">
+</div>
 
-<input
-id="grade3"
-type="number"
-min="1"
-max="12"
-placeholder="Оцінка 3">
 
-<button class="primary"
-onclick="calculateGrade()">
-Порахувати середній бал
+<div class="grade-list">
+
+<div id="gradeRows"></div>
+
+<button class="secondary"
+onclick="addGrade()">
++ Додати предмет
 </button>
 
-<div class="average"
-id="average">
-Введи оцінки
+
+<div class="average">
+
+<p>
+Середній бал
+</p>
+
+<strong id="average">
+0.00
+</strong>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     ПРОФІЛЬ
+========================= -->
+
+<section id="profile" class="page">
+
+<div class="section-title">
+
+<h2>
+👤 Профіль студента
+</h2>
+
+<p>
+Тут можна змінити інформацію про себе.
+</p>
+
+</div>
+
+
+<div class="profile">
+
+<div class="profile-photo">
+🎓
+</div>
+
+
+<div class="profile-info">
+
+<h2 id="profileName">
+Вероніка
+</h2>
+
+<p>
+<strong>Група:</strong>
+<span id="profileGroup">
+11-ІТ
+</span>
+</p>
+
+<p>
+<strong>Спеціальність:</strong>
+<span id="profileSpecialty">
+Інформаційні системи та технології
+</span>
+</p>
+
+<p>
+<strong>Місто:</strong>
+<span id="profileCity">
+Звягель
+</span>
+</p>
+
+<br>
+
+<button class="primary"
+onclick="openProfileEditor()">
+✏️ Редагувати профіль
+</button>
+
 </div>
 
 </div>
@@ -901,475 +1370,896 @@ id="average">
 </main>
 
 
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer>
 
-StudentHub • 11-ІТ • Навчання стає простішим 🚀
+StudentHub © 2026
+<br>
+Цифровий простір студента
 
 </footer>
 
 
+<!-- =========================
+     MODAL ПРОФІЛЮ
+========================= -->
+
+<div class="modal" id="profileModal">
+
+<div class="modal-box">
+
+<h2>
+✏️ Редагування профілю
+</h2>
+
+<input
+class="input"
+id="editName"
+placeholder="Ім'я"
+style="margin-bottom:10px">
+
+<input
+class="input"
+id="editGroup"
+placeholder="Група"
+style="margin-bottom:10px">
+
+<input
+class="input"
+id="editSpecialty"
+placeholder="Спеціальність"
+style="margin-bottom:10px">
+
+<input
+class="input"
+id="editCity"
+placeholder="Місто">
+
+<div class="modal-actions">
+
+<button class="secondary"
+onclick="closeProfileEditor()">
+Скасувати
+</button>
+
+<button class="primary"
+onclick="saveProfile()">
+💾 Зберегти
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
 <script>
 
+/* =====================================================
+   ДАНІ РОЗКЛАДУ
+===================================================== */
 
-/* ПЕРЕМИКАННЯ РОЗДІЛІВ */
+const defaultSchedule = {
 
-function showSection(id,button){
-
-document
-.querySelectorAll('.section')
-.forEach(section=>{
-section.classList.remove('active');
-});
-
-document
-.getElementById(id)
-.classList.add('active');
-
-document
-.querySelectorAll('nav button')
-.forEach(btn=>{
-btn.classList.remove('active');
-});
-
-button.classList.add('active');
-
-}
-
-
-/* РОЗКЛАД */
-
-function showWeek(type,button){
-
-document.getElementById('numerator').style.display='none';
-
-document.getElementById('denominator').style.display='none';
-
-document.getElementById('normal').style.display='none';
-
-document.getElementById('saturday').style.display='none';
-
-
-if(type==='numerator'){
-
-document.getElementById('numerator').style.display='block';
-
-}
-
-if(type==='denominator'){
-
-document.getElementById('denominator').style.display='block';
-
-}
-
-if(type==='normal'){
-
-document.getElementById('normal').style.display='block';
-
-}
-
-if(type==='saturday'){
-
-document.getElementById('saturday').style.display='block';
-
-showSaturday();
-
-}
-
-
-document
-.querySelectorAll('.week-btn')
-.forEach(btn=>{
-btn.classList.remove('active');
-});
-
-button.classList.add('active');
-
-}
-
-
-/* СУБОТА */
-
-const saturdayData={
-
-mondayNum:[
-'Українська література',
-'Географія',
-'Математика'
+monNum:[
+    ["1","Українська література","08:30"],
+    ["2","Географія","10:10"],
+    ["3","Математика","11:50"]
 ],
 
-mondayDen:[
-'Хімія',
-'Фізика',
-'Математика'
+monDen:[
+    ["1","Хімія","08:30"],
+    ["2","Фізика","10:10"],
+    ["3","Математика","11:50"]
 ],
 
-tuesday:[
-'Фізкультура',
-'Українська мова',
-'Біологія'
+tue:[
+    ["1","Фізкультура","08:30"],
+    ["2","Українська мова","10:10"],
+    ["3","Біологія","11:50"]
 ],
 
-wednesday:[
-'Хімія',
-'Фізика',
-'Інформатика'
+wed:[
+    ["1","Хімія","08:30"],
+    ["2","Фізика","10:10"],
+    ["3","Інформатика","11:50"]
 ],
 
-thursday:[
-'Зарубіжна література',
-'Історія',
-'Англійська мова'
+thu:[
+    ["1","Зарубіжна література","08:30"],
+    ["2","Історія","10:10"],
+    ["3","Англійська мова","11:50"]
 ],
 
-friday:[
-'Українська література',
-'Захист України',
-'Математика',
-'Фізика'
+fri:[
+    ["1","Українська література","08:30"],
+    ["2","Захист України","10:10"],
+    ["3","Математика","11:50"],
+    ["4","Фізика","13:30"]
+],
+
+sat:[
+    ["1","Суботнє навчання","За розкладом обраного дня"]
 ]
 
 };
 
 
-function showSaturday(){
+let schedule =
+JSON.parse(localStorage.getItem("studentSchedule"))
+|| defaultSchedule;
 
-let day=
-document.getElementById('saturdayDay').value;
 
-let lessons=
-saturdayData[day];
+/* =====================================================
+   НАЗВИ ДНІВ
+===================================================== */
 
-let box=
-document.getElementById('saturdaySchedule');
+const dayNames = {
 
-box.innerHTML='';
+monNum:"Понеділок — чисельник",
+monDen:"Понеділок — знаменник",
+tue:"Вівторок",
+wed:"Середа",
+thu:"Четвер",
+fri:"П’ятниця",
+sat:"Субота"
 
-lessons.forEach((lesson,index)=>{
+};
 
-box.innerHTML+=`
 
-<div class="lesson">
+let currentDay = "monNum";
 
-<div class="number">
-${index+1}
-</div>
 
-<div>
-<strong>${lesson}</strong>
-</div>
+/* =====================================================
+   ПЕРЕХІД МІЖ СТОРІНКАМИ
+===================================================== */
 
-</div>
+function showPage(page,button){
 
-`;
+    document.querySelectorAll(".page")
+    .forEach(item=>{
+        item.classList.remove("active");
+    });
 
-});
+    document.getElementById(page)
+    .classList.add("active");
+
+
+    document.querySelectorAll(".nav-btn")
+    .forEach(item=>{
+        item.classList.remove("active");
+    });
+
+
+    if(button){
+        button.classList.add("active");
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+function openSection(page){
+
+    const button =
+    document.querySelector(
+        `.nav-btn[onclick*="'${page}'"]`
+    );
+
+    showPage(page,button);
+}
+
+
+/* =====================================================
+   РОЗКЛАД
+===================================================== */
+
+function selectDay(day,button){
+
+    currentDay = day;
+
+    document.querySelectorAll(".day-btn")
+    .forEach(item=>{
+        item.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    renderSchedule();
+    renderEditor();
+}
+
+
+function renderSchedule(){
+
+    const container =
+    document.getElementById("scheduleContainer");
+
+    let lessons = schedule[currentDay];
+
+    let html = `
+
+    <div class="schedule-top">
+
+        <strong>
+        ${dayNames[currentDay]}
+        </strong>
+
+        <span>
+        ${lessons.length} занять
+        </span>
+
+    </div>
+
+    `;
+
+
+    lessons.forEach((lesson,index)=>{
+
+        html += `
+
+        <div class="lesson">
+
+            <div class="lesson-number">
+                ${lesson[0]}
+            </div>
+
+            <div>
+                <h3>
+                    ${lesson[1]}
+                </h3>
+
+                <p>
+                    Навчальне заняття
+                </p>
+            </div>
+
+            <div class="lesson-time">
+                ${lesson[2]}
+            </div>
+
+            <button
+            class="edit-lesson"
+            onclick="focusEditor(${index})">
+                ✏️
+            </button>
+
+        </div>
+
+        `;
+
+    });
+
+
+    container.innerHTML = html;
+}
+
+
+function renderEditor(){
+
+    const editor =
+    document.getElementById("scheduleEditor");
+
+    let lessons = schedule[currentDay];
+
+    editor.innerHTML = "";
+
+
+    lessons.forEach((lesson,index)=>{
+
+        editor.innerHTML += `
+
+        <div class="edit-row">
+
+            <input
+            class="field"
+            value="${lesson[0]}"
+            onchange="schedule[currentDay][${index}][0]=this.value">
+
+            <input
+            class="field"
+            value="${lesson[1]}"
+            placeholder="Назва предмета"
+            onchange="schedule[currentDay][${index}][1]=this.value">
+
+            <input
+            class="field"
+            value="${lesson[2]}"
+            placeholder="Час"
+            onchange="schedule[currentDay][${index}][2]=this.value">
+
+            <button
+            class="delete-btn"
+            onclick="deleteLesson(${index})">
+            ✕
+            </button>
+
+        </div>
+
+        `;
+
+    });
 
 }
 
 
-/* TODO */
+function addLesson(){
 
-let tasks=
-JSON.parse(
-localStorage.getItem('tasks') || '[]'
-);
+    schedule[currentDay].push([
+        String(schedule[currentDay].length+1),
+        "Новий предмет",
+        "14:20"
+    ]);
+
+    renderSchedule();
+    renderEditor();
+
+}
 
 
-function renderTasks(){
+function deleteLesson(index){
 
-let box=
-document.getElementById('tasks');
+    if(schedule[currentDay].length<=1){
+        alert("У дні має залишитися хоча б одне заняття.");
+        return;
+    }
 
-box.innerHTML='';
+    schedule[currentDay].splice(index,1);
 
-tasks.forEach((task,index)=>{
+    schedule[currentDay]
+    .forEach((lesson,i)=>{
+        lesson[0]=String(i+1);
+    });
 
-box.innerHTML+=`
+    renderSchedule();
+    renderEditor();
 
-<div class="todo-item
-${task.done?'done':''}">
+}
 
-<span onclick="toggleTask(${index})">
-${task.text}
-</span>
 
-<button
-class="danger"
-onclick="deleteTask(${index})">
-✕
-</button>
+function saveSchedule(){
 
-</div>
+    localStorage.setItem(
+        "studentSchedule",
+        JSON.stringify(schedule)
+    );
 
-`;
+    alert("Розклад успішно збережено!");
 
-});
+    renderSchedule();
+    renderEditor();
+
+}
+
+
+function focusEditor(index){
+
+    const editorRows =
+    document.querySelectorAll(".edit-row");
+
+    if(editorRows[index]){
+
+        editorRows[index]
+        .scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
+
+        editorRows[index]
+        .style.outline =
+        "2px solid var(--accent)";
+
+    }
+
+}
+
+
+/* =====================================================
+   ЗАВДАННЯ
+===================================================== */
+
+let tasks =
+JSON.parse(localStorage.getItem("studentTasks"))
+|| [];
+
+
+function saveTasks(){
+
+    localStorage.setItem(
+        "studentTasks",
+        JSON.stringify(tasks)
+    );
 
 }
 
 
 function addTask(){
 
-let input=
-document.getElementById('taskInput');
+    const input =
+    document.getElementById("taskInput");
 
-if(input.value.trim()===''){
-return;
-}
+    const text =
+    input.value.trim();
 
-tasks.push({
-text:input.value,
-done:false
-});
+    if(text===""){
+        alert("Введи текст завдання.");
+        return;
+    }
 
-input.value='';
 
-saveTasks();
+    tasks.push({
+        text:text,
+        done:false
+    });
+
+
+    input.value="";
+
+    saveTasks();
+    renderTasks();
 
 }
 
 
 function toggleTask(index){
 
-tasks[index].done=
-!tasks[index].done;
+    tasks[index].done =
+    !tasks[index].done;
 
-saveTasks();
+    saveTasks();
+    renderTasks();
 
 }
 
 
 function deleteTask(index){
 
-tasks.splice(index,1);
+    tasks.splice(index,1);
 
-saveTasks();
+    saveTasks();
+    renderTasks();
+
+}
+
+
+function renderTasks(){
+
+    const list =
+    document.getElementById("taskList");
+
+
+    if(tasks.length===0){
+
+        list.innerHTML = `
+
+        <div class="card">
+
+            <div class="card-icon">
+                ✨
+            </div>
+
+            <h3>
+                Завдань поки немає
+            </h3>
+
+            <p>
+                Додай перше завдання за допомогою
+                поля вище.
+            </p>
+
+        </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML = "";
+
+
+    tasks.forEach((task,index)=>{
+
+        list.innerHTML += `
+
+        <div class="todo
+        ${task.done ? "done" : ""}">
+
+            <input
+            class="todo-check"
+            type="checkbox"
+            ${task.done ? "checked" : ""}
+            onchange="toggleTask(${index})">
+
+            <span class="todo-text">
+                ${escapeHTML(task.text)}
+            </span>
+
+            <button
+            class="todo-delete"
+            onclick="deleteTask(${index})">
+                ✕
+            </button>
+
+        </div>
+
+        `;
+
+    });
 
 }
 
 
-function saveTasks(){
+/* =====================================================
+   НОТАТКИ
+===================================================== */
 
-localStorage.setItem(
-'tasks',
-JSON.stringify(tasks)
-);
+function loadNotes(){
 
-renderTasks();
+    document.getElementById("mainNotes").value =
+    localStorage.getItem("mainNotes") || "";
+
+    document.getElementById("quickNotes").value =
+    localStorage.getItem("quickNotes") || "";
 
 }
-
-renderTasks();
-
-
-/* НОТАТКИ */
-
-document.getElementById('notesBox').value=
-localStorage.getItem('notes') || '';
 
 
 function saveNotes(){
 
-let notes=
-document.getElementById('notesBox').value;
+    localStorage.setItem(
+        "mainNotes",
+        document.getElementById("mainNotes").value
+    );
 
-localStorage.setItem(
-'notes',
-notes
-);
-
-document.getElementById('saved').innerText=
-'✓ Нотатки збережено';
+    document.getElementById("notesMessage")
+    .textContent =
+    "✓ Нотатки збережено";
 
 }
 
 
-/* ТАЙМЕР */
+function saveQuickNotes(){
 
-let time=25*60;
+    localStorage.setItem(
+        "quickNotes",
+        document.getElementById("quickNotes").value
+    );
 
-let timerInterval=null;
-
-
-function updateTimer(){
-
-let minutes=
-Math.floor(time/60);
-
-let seconds=
-time%60;
-
-document.getElementById(
-'timerDisplay'
-).innerText=
-
-String(minutes)
-.padStart(2,'0')
-
-+
-
-':'+
-
-String(seconds)
-.padStart(2,'0');
+    alert("Швидкий запис збережено!");
 
 }
 
 
-function startTimer(){
+/* =====================================================
+   ОЦІНКИ
+===================================================== */
 
-if(timerInterval){
-return;
-}
+let grades =
+JSON.parse(localStorage.getItem("studentGrades"))
+|| [];
 
-timerInterval=
-setInterval(()=>{
 
-if(time>0){
+function saveGrades(){
 
-time--;
-
-updateTimer();
-
-}
-
-else{
-
-clearInterval(timerInterval);
-
-timerInterval=null;
-
-alert(
-'Час вийшов! Зроби перерву ☕'
-);
-
-}
-
-},1000);
+    localStorage.setItem(
+        "studentGrades",
+        JSON.stringify(grades)
+    );
 
 }
 
 
-function pauseTimer(){
+function addGrade(){
 
-clearInterval(timerInterval);
+    grades.push({
+        subject:"",
+        grade:""
+    });
 
-timerInterval=null;
-
-}
-
-
-function resetTimer(){
-
-pauseTimer();
-
-time=25*60;
-
-updateTimer();
+    saveGrades();
+    renderGrades();
 
 }
 
 
-/* ОЦІНКИ */
+function deleteGrade(index){
 
-function calculateGrade(){
+    grades.splice(index,1);
 
-let a=
-Number(
-document.getElementById('grade1').value
-);
-
-let b=
-Number(
-document.getElementById('grade2').value
-);
-
-let c=
-Number(
-document.getElementById('grade3').value
-);
-
-let grades=
-[a,b,c].filter(x=>x>0);
-
-if(grades.length===0){
-
-document.getElementById(
-'average'
-).innerText=
-'Введи оцінки';
-
-return;
-
-}
-
-let avg=
-grades.reduce(
-(sum,x)=>sum+x,0
-)
-/
-grades.length;
-
-document.getElementById(
-'average'
-).innerText=
-'Середній бал: '
-+
-avg.toFixed(2);
+    saveGrades();
+    renderGrades();
 
 }
 
 
-/* ТЕМА */
+function renderGrades(){
+
+    const box =
+    document.getElementById("gradeRows");
+
+    box.innerHTML = "";
+
+
+    grades.forEach((item,index)=>{
+
+        box.innerHTML += `
+
+        <div class="grade-row">
+
+            <input
+            class="input"
+            placeholder="Предмет"
+            value="${escapeHTML(item.subject)}"
+            onchange="updateGradeSubject(${index},this.value)">
+
+            <input
+            class="input"
+            type="number"
+            min="1"
+            max="12"
+            placeholder="1–12"
+            value="${item.grade}"
+            onchange="updateGradeValue(${index},this.value)">
+
+            <button
+            class="delete-btn"
+            onclick="deleteGrade(${index})">
+            ✕
+            </button>
+
+        </div>
+
+        `;
+
+    });
+
+
+    calculateAverage();
+
+}
+
+
+function updateGradeSubject(index,value){
+
+    grades[index].subject=value;
+
+    saveGrades();
+
+}
+
+
+function updateGradeValue(index,value){
+
+    grades[index].grade=value;
+
+    saveGrades();
+    calculateAverage();
+
+}
+
+
+function calculateAverage(){
+
+    const values =
+    grades
+    .map(item=>Number(item.grade))
+    .filter(value=>value>0);
+
+
+    let average=0;
+
+
+    if(values.length>0){
+
+        average =
+        values.reduce(
+            (sum,value)=>sum+value,
+            0
+        ) / values.length;
+
+    }
+
+
+    document.getElementById("average")
+    .textContent =
+    average.toFixed(2);
+
+}
+
+
+/* =====================================================
+   ПРОФІЛЬ
+===================================================== */
+
+let profile =
+JSON.parse(localStorage.getItem("studentProfile"))
+|| {
+    name:"Вероніка",
+    group:"11-ІТ",
+    specialty:"Інформаційні системи та технології",
+    city:"Звягель"
+};
+
+
+function renderProfile(){
+
+    document.getElementById("profileName")
+    .textContent=profile.name;
+
+    document.getElementById("profileGroup")
+    .textContent=profile.group;
+
+    document.getElementById("profileSpecialty")
+    .textContent=profile.specialty;
+
+    document.getElementById("profileCity")
+    .textContent=profile.city;
+
+}
+
+
+function openProfileEditor(){
+
+    document.getElementById("editName")
+    .value=profile.name;
+
+    document.getElementById("editGroup")
+    .value=profile.group;
+
+    document.getElementById("editSpecialty")
+    .value=profile.specialty;
+
+    document.getElementById("editCity")
+    .value=profile.city;
+
+
+    document.getElementById("profileModal")
+    .classList.add("show");
+
+}
+
+
+function closeProfileEditor(){
+
+    document.getElementById("profileModal")
+    .classList.remove("show");
+
+}
+
+
+function saveProfile(){
+
+    profile.name =
+    document.getElementById("editName").value
+    || "Студент";
+
+    profile.group =
+    document.getElementById("editGroup").value
+    || "—";
+
+    profile.specialty =
+    document.getElementById("editSpecialty").value
+    || "—";
+
+    profile.city =
+    document.getElementById("editCity").value
+    || "—";
+
+
+    localStorage.setItem(
+        "studentProfile",
+        JSON.stringify(profile)
+    );
+
+
+    renderProfile();
+    closeProfileEditor();
+
+    alert("Профіль збережено!");
+
+}
+
+
+/* =====================================================
+   ТЕМА
+===================================================== */
 
 function toggleTheme(){
 
-document.body.classList.toggle('light');
+    document.body.classList.toggle("light");
 
-localStorage.setItem(
-'theme',
-document.body.classList.contains('light')
-);
+    const light =
+    document.body.classList.contains("light");
+
+
+    localStorage.setItem(
+        "studentTheme",
+        light ? "light" : "dark"
+    );
+
+
+    document.getElementById("themeButton")
+    .textContent =
+    light ? "☀️" : "🌙";
 
 }
 
 
-if(
-localStorage.getItem('theme')
-==='true'
-){
+function loadTheme(){
 
-document.body.classList.add('light');
+    const theme =
+    localStorage.getItem("studentTheme");
+
+
+    if(theme==="light"){
+
+        document.body.classList.add("light");
+
+        document.getElementById("themeButton")
+        .textContent="☀️";
+
+    }
 
 }
 
 
-/* ЦИТАТА */
+/* =====================================================
+   ЗАХИСТ ТЕКСТУ
+===================================================== */
 
-const quotes=[
+function escapeHTML(text){
 
-'Маленькі кроки щодня приводять до великих результатів.',
+    return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
-'Не бійся помилятися — бійся не пробувати.',
+}
 
-'Твоє майбутнє створюється сьогодні.',
 
-'Знання — це твій найкращий інструмент.',
+/* =====================================================
+   ENTER ДЛЯ ДОДАВАННЯ ЗАВДАННЯ
+===================================================== */
 
-'Складне стає простим після практики.'
+document
+.getElementById("taskInput")
+.addEventListener("keydown",function(event){
 
-];
+    if(event.key==="Enter"){
+        addTask();
+    }
 
-document.getElementById(
-'quote'
-).innerText=
+});
 
-quotes[
-Math.floor(
-Math.random()*quotes.length
-)
-];
 
+/* =====================================================
+   ЗАПУСК САЙТУ
+===================================================== */
+
+loadTheme();
+
+loadNotes();
+
+renderTasks();
+
+renderGrades();
+
+renderProfile();
+
+renderSchedule();
+
+renderEditor();
 
 </script>
 
